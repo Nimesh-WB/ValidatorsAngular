@@ -1,0 +1,83 @@
+<p-card styleClass="user-form" class="flex justify-content-center">
+    <form [formGroup]="userForm" (ngSubmit)="addUser()" novalidate>
+      <div class="field">
+        <label for="firstName" class="block">First Name</label>
+        <input type="text" pInputText placeholder="First Name" formControlName="firstName" />
+        <div *ngIf="userForm.get('firstName')?.touched && userForm.get('firstName')?.invalid" >
+            <small class="text-danger" *ngIf="userForm.get('firstName')?.errors" style="color: red;">
+                First Name is required!
+            </small>
+        </div>
+      </div><br>
+      
+      <div class="field">
+        <label for="lastName" class="block">Last Name</label>
+        <input type="text" pInputText placeholder="Last Name" formControlName="lastName"  />
+        <small class="p-error block" *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched" style="color: red;">
+          Last Name is required
+        </small>
+      </div><br>
+
+      <div class="field">
+        <label for="email" class="block">Email</label>
+        <input type="email" pInputText placeholder="Email Address" formControlName="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" />
+        <small class="p-error block" *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" style="color: red;">
+          Email is required
+        </small>
+      </div><br>
+  
+      <div formGroupName="address">
+        <div class="field">
+          <label for="street" class="block">Street</label>
+          <input type="text" pInputText placeholder="Street" formControlName="street" />
+          <small class="p-error block" *ngIf="userForm.get('address')?.get('street')?.invalid && userForm.get('address')?.get('street')?.touched" style="color: red;">
+            Street is required
+          </small>
+        </div><br>
+
+        <div class="field">
+          <label for="postCode" class="block">PostCode</label>
+          <input type="text" pInputText placeholder="PostCode" formControlName="postCode" />
+          <small class="p-error block" *ngIf="userForm.get('address')?.get('postCode')?.invalid && userForm.get('address')?.get('postCode')?.touched" style="color: red;">
+            PostCode is required
+          </small>
+        </div>
+      </div><br>
+
+      <div class="field">
+        <label for="dob" class="block">Subscribe to channel</label><br>
+        <label>
+            <input type="checkbox" formControlName="isSubscribed" value="Subscribe"/>
+            Subscribe to newsletter
+        </label><br>
+        <label>
+            <input type="checkbox" formControlName="isSubscribed" value="Unsubscribe"/>
+            Unsubscribe from newsletter
+        </label>
+        <small class="p-error block" *ngIf="userForm.get('isSubscribed')?.touched && userForm.get('isSubscribed')?.invalid" style="color: red;">
+          Please select one checkbox
+        </small>
+      </div><br>
+
+      <div class="field">
+        <label>Genders</label>
+        <div>
+          <label>
+            <input type="radio" formControlName="selectedOption" value="male" />
+            Male
+          </label>
+        </div>
+        <div>
+          <label>
+            <input type="radio" formControlName="selectedOption" value="female" />
+            Female
+          </label>
+        </div>
+        <small class="p-error block" *ngIf="userForm.get('selectedOption')?.touched && userForm.get('selectedOption')?.invalid" style="color: red;">
+          Please select Gender
+        </small>
+      </div><br>
+  
+      <button pButton type="submit" label="Submit"></button>
+    </form>
+</p-card>
